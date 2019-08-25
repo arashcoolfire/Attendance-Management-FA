@@ -1,6 +1,16 @@
 // Ionic Variables and Theming. For more info, please see:
 // http://ionicframework.com/docs/theming/
 
+@font-face {
+  font-family: IRANSansWeb;
+  src: url("../assets/fonts/IRANSansWeb.woff");
+}
+
+* {
+  //font-family: "IRANSansWeb";
+  --ion-font-family: "IRANSansWeb";
+}
+
 /** Ionic CSS Variables **/
 :root {
   /** primary **/

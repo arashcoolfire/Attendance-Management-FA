@@ -1,0 +1,46 @@
+<ion-header>
+    <ion-toolbar color="primary" text-center>
+        <ion-buttons slot="start">
+            <ion-button
+                    (click)="onSubmit()"
+                    [disabled]="loginForm.invalid"
+                    expand="block">
+                ورود
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            ورود به سیستم
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button
+                    (click)="onCancel()"
+                    expand="block">
+                انصراف
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <form [formGroup]="loginForm">
+        <ion-grid>
+            <ion-row>
+                <ion-col sizeMd="12" sizeXs="12">
+                    <ion-item>
+                        <ion-label position="floating">
+                            کد ملی
+                        </ion-label>
+                        <ion-input
+                                formControlName="nationalId"
+                                type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="floating">
+                            رمز عبور
+                        </ion-label>
+                        <ion-input formControlName="password" type="password"></ion-input>
+                    </ion-item>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </form>
+</ion-content>
