@@ -60,7 +60,31 @@ export class DebugerComponent {
                 });
     }
 
+    async testValues() {
+        const body = {
+            firstName: 'Mohsen',
+            lastName: 'Ketabchi',
+            nationalCode: '0985643536',
+            phoneNo: '09354801265',
+            email: 'mohsen123@gmail.com',
+            userName: 'mohsen',
+            password: '123',
+            userRole: 2
+        };
+
+        await this.http.post(
+            `http://localhost:5000/api/Personnel`,
+            body)
+            .subscribe(
+                (res: any) => {
+                    console.log(res);
+                }, err => {
+                    console.log(err);
+                });
+    }
+
     onStart() {
+        this.testValues();
         if (this.selectedMethod === 'GET') {
             if (this.inputUrl) {
                 this.getMethodTest();

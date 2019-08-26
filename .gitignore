@@ -22,6 +22,8 @@ coverage/
 API Documents/
 Backend/AttendanceApi-sqlite
 Publish/
+Backend/SourceAPI/bin/
+Backend/SourceAPI/obj/
 www/
 dist/
 node_modules/
