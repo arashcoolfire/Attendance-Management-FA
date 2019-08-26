@@ -21,6 +21,7 @@ npm-debug.log*
 coverage/
 API Documents/
 Backend/AttendanceApi-sqlite
+Publish/
 www/
 dist/
 node_modules/
