@@ -83,8 +83,24 @@ export class DebugerComponent {
                 });
     }
 
+    async sendGetWithHeaders() {
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+            })
+        };
+        this.http.get('https://localhost:5001/api/Personnal', httpOptions).subscribe(
+            (res: any) => {
+                console.log(res);
+            }, (err: any) => {
+                console.log(err);
+            }
+        );
+    }
+
     onStart() {
-        this.testValues();
+        // this.testValues();
+        this.sendGetWithHeaders();
         if (this.selectedMethod === 'GET') {
             if (this.inputUrl) {
                 this.getMethodTest();
