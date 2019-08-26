@@ -1,0 +1,45 @@
+get all personnels
+GET https://localhost:44315/api/Personnel
+get personel by id
+GET https://localhost:44315/api/Personnel/personnelId
+example https://localhost:44315/api/Personnel/2
+
+(2 is personnelId)
+
+POST https://localhost:44315/api/Personnel
+example https://localhost:44315/api/Personnel
+    raw sample
+    {
+        "firstName": "Mohsen",
+        "lastName": "Ketabchi",
+        "nationalCode": "0985643536",
+        "phoneNo": "09354801265",
+        "email": "mohsen123@gmail.com",
+        "userName": "mohsen",
+        "password": "123",
+        "userRole": 2
+    }
+	
+PUT https://localhost:44315/api/Personnel
+example https://localhost:44315/api/Personnel
+    raw data
+	{
+	    "personnelId": 2,
+        "firstName": "Mohsen2",
+        "lastName": "Ketabchi2",
+        "nationalCode": "0985643536",
+        "phoneNo": "09354801265",
+        "email": "mohsen123@gmail.com",
+		"userId": 2,
+        "userName": "mohsen",
+        "password": "123",
+        "userRole": 2
+    }
+	
+DELETE https://localhost:44315/api/Personnel/PersonelId
+example https://localhost:44315/api/Personnel/6
+(6 is personnelId)
+
+
+
+

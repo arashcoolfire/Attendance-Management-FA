@@ -1,0 +1,22 @@
+Login
+GET https://localhost:44315/api/Login/nationalCode/passWord
+example https://localhost:44315/api/Login/1234512345/123
+
+sample return data of get Login
+{
+    "successed": true,
+    "message": null,
+    "resultObject": {
+        "personnelId": 1,
+        "firstName": "Arash",
+        "lastName": "Tafakori",
+        "nationalCode": "1234512345",
+        "phoneNo": "09129264862",
+        "email": "arashcoolfire@gmail.com",
+        "fullName": "Arash Tafakori",
+        "userId": 1,
+        "password": "123",
+        "userRole": 1,
+        "userRoleName": "مدیر سیستم"
+    }
+}

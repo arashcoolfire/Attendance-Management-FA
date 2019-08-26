@@ -7,6 +7,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { AuthPage } from './auth.page';
 import {LoginComponent} from './login/login.component';
+import {DebugerComponent} from './api.debuger/debuger.component';
+import {UrlDirective} from './api.debuger/directives/url.directive';
 
 const routes: Routes = [
   {
@@ -23,7 +25,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         ReactiveFormsModule
     ],
-  declarations: [AuthPage, LoginComponent],
-  entryComponents: [LoginComponent]
+  declarations: [AuthPage, LoginComponent, DebugerComponent, UrlDirective],
+  entryComponents: [LoginComponent, DebugerComponent]
 })
 export class AuthPageModule {}

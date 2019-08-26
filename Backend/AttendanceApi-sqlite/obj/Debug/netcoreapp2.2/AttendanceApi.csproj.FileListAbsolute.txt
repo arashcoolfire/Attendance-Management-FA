@@ -1,0 +1,14 @@
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\bin\Debug\netcoreapp2.2\AttendanceApi.deps.json
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\bin\Debug\netcoreapp2.2\AttendanceApi.runtimeconfig.json
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\bin\Debug\netcoreapp2.2\AttendanceApi.runtimeconfig.dev.json
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\bin\Debug\netcoreapp2.2\AttendanceApi.dll
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\bin\Debug\netcoreapp2.2\AttendanceApi.pdb
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.csprojAssemblyReference.cache
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.csproj.CoreCompileInputs.cache
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.RazorAssemblyInfo.cache
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.RazorAssemblyInfo.cs
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.AssemblyInfoInputs.cache
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.AssemblyInfo.cs
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.RazorTargetAssemblyInfo.cache
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.dll
+D:\Projects\Ionic\attendance\Backend\AttendanceApi-sqlite\obj\Debug\netcoreapp2.2\AttendanceApi.pdb

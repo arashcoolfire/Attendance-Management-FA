@@ -1,0 +1,109 @@
+root@srv54310:~# cd /var/www/
+bigbluebutton/         bigbluebutton-default/ html/
+root@srv54310:~# cd /var/www/bigbluebutton-default/pre-build/
+root@srv54310:/var/www/bigbluebutton-default/pre-build# clear
+root@srv54310:/var/www/bigbluebutton-default/pre-build# npm install --save mongoose
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN pre-build No description
+npm WARN pre-build No repository field.
+npm WARN pre-build No README data
+npm WARN pre-build No license field.
+
++ mongoose@5.6.10
+added 24 packages from 18 contributors and audited 39 packages in 4.457s
+found 0 vulnerabilities
+
+root@srv54310:/var/www/bigbluebutton-default/pre-build# clear^C
+root@srv54310:/var/www/bigbluebutton-default/pre-build# npm install --save express
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN pre-build No description
+npm WARN pre-build No repository field.
+npm WARN pre-build No README data
+npm WARN pre-build No license field.
+
++ express@4.17.1
+added 55 packages from 36 contributors and audited 218 packages in 7.742s
+found 0 vulnerabilities
+
+root@srv54310:/var/www/bigbluebutton-default/pre-build# npm install --save jsonwebtoken
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN pre-build No description
+npm WARN pre-build No repository field.
+npm WARN pre-build No README data
+npm WARN pre-build No license field.
+
++ jsonwebtoken@8.5.1
+added 12 packages from 9 contributors and audited 391 packages in 3.896s
+found 0 vulnerabilities
+
+root@srv54310:/var/www/bigbluebutton-default/pre-build# npm install --save bcryptjs
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN pre-build No description
+npm WARN pre-build No repository field.
+npm WARN pre-build No README data
+npm WARN pre-build No license field.
+
++ bcryptjs@2.4.3
+added 1 package from 6 contributors and audited 414 packages in 3.692s
+found 0 vulnerabilities
+
+root@srv54310:/var/www/bigbluebutton-default/pre-build# npm install --save mongodb
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN pre-build No description
+npm WARN pre-build No repository field.
+npm WARN pre-build No README data
+npm WARN pre-build No license field.
+
++ mongodb@3.3.0
+added 1 package, updated 1 package and audited 409 packages in 3.346s
+found 0 vulnerabilities
+
+root@srv54310:/var/www/bigbluebutton-default/pre-build# npm install --save path
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN pre-build No description
+npm WARN pre-build No repository field.
+npm WARN pre-build No README data
+npm WARN pre-build No license field.
+
++ path@0.12.7
+added 3 packages from 2 contributors and audited 413 packages in 3.317s
+found 0 vulnerabilities
+
+root@srv54310:/var/www/bigbluebutton-default/pre-build# npm install --save body-parser
+npm WARN saveError ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN enoent ENOENT: no such file or directory, open '/var/www/bigbluebutton-default/pre-build/package.json'
+npm WARN pre-build No description
+npm WARN pre-build No repository field.
+npm WARN pre-build No README data
+npm WARN pre-build No license field.
+
++ body-parser@1.19.0
+updated 1 package and audited 416 packages in 3.76s
+found 0 vulnerabilities
+
+root@srv54310:/var/www/bigbluebutton-default/pre-build# node app.js
+{ MongoNetworkError: failed to connect to server [127.0.0.1:27017] on first connect [MongoNetworkError: connect ECONNREFUSED 127.0.0.1:27017]
+    at Pool.<anonymous> (/var/www/bigbluebutton-default/pre-build/node_modules/mongodb-core/lib/topologies/server.js:431:11)
+    at emitOne (events.js:116:13)
+    at Pool.emit (events.js:211:7)
+    at connect (/var/www/bigbluebutton-default/pre-build/node_modules/mongodb-core/lib/connection/pool.js:557:14)
+    at makeConnection (/var/www/bigbluebutton-default/pre-build/node_modules/mongodb-core/lib/connection/connect.js:39:11)
+    at callback (/var/www/bigbluebutton-default/pre-build/node_modules/mongodb-core/lib/connection/connect.js:261:5)
+    at Socket.err (/var/www/bigbluebutton-default/pre-build/node_modules/mongodb-core/lib/connection/connect.js:286:7)
+    at Object.onceWrapper (events.js:315:30)
+    at emitOne (events.js:116:13)
+    at Socket.emit (events.js:211:7)
+    at emitErrorNT (internal/streams/destroy.js:66:8)
+    at _combinedTickCallback (internal/process/next_tick.js:139:11)
+    at process._tickCallback (internal/process/next_tick.js:181:9)
+  name: 'MongoNetworkError',
+  errorLabels: [ 'TransientTransactionError' ],
+  [Symbol(mongoErrorContextSymbol)]: {} }
+root@srv54310:/var/www/bigbluebutton-default/pre-build#

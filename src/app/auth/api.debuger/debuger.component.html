@@ -1,0 +1,47 @@
+<ion-header dir="ltr">
+    <ion-toolbar color="primary" text-center>
+        <ion-buttons slot="start">
+            <ion-button (click)="onStart()">
+                Send Request
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Test API
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="onExit()">
+                EXIT
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content dir="ltr">
+    <ion-grid>
+        <ion-row>
+            <ion-col sizeXs="12">
+                <ion-item>
+                    <ion-label position="floating">
+                        API Url
+                    </ion-label>
+                    <ion-input [(ngModel)]="inputUrl"></ion-input>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col sizeXs="12">
+                <ion-item>
+                    <ion-label>
+                        Select Method
+                    </ion-label>
+                    <ion-select [(ngModel)]="selectedMethod" cancelText="DISMISS" okText="OK">
+                        <ion-select-option
+                                *ngFor="let meth of testMethod"
+                                [disabled]="meth !== 'GET'"
+                                [value]="meth">{{meth}}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>

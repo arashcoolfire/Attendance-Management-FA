@@ -1,0 +1,60 @@
+Add Attendance Time
+POST https://localhost:44315/api/Attendance/AddTime
+sample send raw data 
+{
+    "PersonnelId": 2,
+    "TimeType": 1
+}
+
+sample return data of add time post
+{
+    "dayId": 1,
+    "timeType": 1,
+    "timeTypeName": "کار اداری",
+    "dayName": "چهارشنبه 30 مرداد 1398",
+    "personnelId": 1,
+    "duration": {
+        "durationOfWorkSecends": 2178,
+        "durationOfWork": "36m",
+        "durationOfLeaveSecends": 703,
+        "durationOfLeave": "11m",
+        "durationOfMisiionSecends": 0,
+        "durationOfMisiion": "0",
+        "durationOfOverTimeSecends": 0,
+        "durationOfOverTime": "0"
+    },
+    "spans": [
+        {
+            "attendanceSpanId": 139,
+            "timeType": 1,
+            "timeTypeName": "کار اداری",
+            "startTime": "10:25:46 ب.ظ",
+            "endTime": "10:26:05 ب.ظ",
+            "duration": "0",
+            "durationSecends": 19
+        },
+        {
+            "attendanceSpanId": 138,
+            "timeType": 1,
+            "timeTypeName": "کار اداری",
+            "startTime": "10:26:16 ب.ظ",
+            "endTime": "10:26:19 ب.ظ",
+            "duration": "0",
+            "durationSecends": 3
+        }
+    ]
+}
+
+------------------
+
+TimeType Value types :
+        AtWork = 1, ساعت معمولی کاری
+        LeaveWork = 2, مرخصی
+        Mission = 3, ماموریت
+        OverTime = 4, اضافه کاری
+        Holiday = 5 تعطیلی
+		
+
+
+
+

@@ -5,6 +5,7 @@ import {timer, interval, Observable} from 'rxjs';
 import {map, share, take, tap} from 'rxjs/operators';
 import {LoginComponent} from './login/login.component';
 import {AuthService} from './auth.service';
+import {DebugerComponent} from './api.debuger/debuger.component';
 
 @Component({
     selector: 'app-auth',
@@ -106,15 +107,8 @@ export class AuthPage implements OnInit {
     }
 
     async onTestApi() {
-        const req = await this.authService.testApi();
-        req.subscribe(res => {
-                console.log('res');
-                console.log(JSON.stringify(res));
-            },
-            err => {
-                console.log('error');
-                console.log(err);
-            });
+        const modal = await this.modalCtr.create({component: DebugerComponent});
+        modal.present();
     }
 
     oberserableTimer() {
