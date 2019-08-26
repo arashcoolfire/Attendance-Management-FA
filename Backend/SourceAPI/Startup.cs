@@ -25,14 +25,7 @@ namespace AttendanceApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowOrigin",
-                    builder =>
-                     builder
-                        .WithOrigins("http://localhost:8100")
-                        .WithMethods("GETS"));
-            });
+            services.AddCors();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -51,9 +44,6 @@ namespace AttendanceApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, AtdDbContext context)
         {
-            app.UseCors(builder =>
-             builder.WithOrigins("http://localhost:8100").AllowAnyHeader().AllowAnyMethod().AllowCredentials());
-
             using (var client = new AtdDbContext())
             {
                 client.Database.EnsureCreated();
@@ -68,6 +58,11 @@ namespace AttendanceApi
             {
                 app.UseHsts();
             }
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
   
             app.UseHttpsRedirection();
             app.UseMvc();
