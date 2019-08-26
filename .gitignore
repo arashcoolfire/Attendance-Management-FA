@@ -19,6 +19,8 @@ npm-debug.log*
 .tmp/
 .versions/
 coverage/
+API Documents/
+Backend/AttendanceApi-sqlite
 www/
 dist/
 node_modules/
