@@ -12,12 +12,12 @@ export class LoginComponent {
         nationalId: new FormControl(null,
             [
                 Validators.required,
-                Validators.minLength(10)
+                // Validators.minLength(10)
             ]),
         password: new FormControl(null,
             [
                 Validators.required,
-                Validators.minLength(6)
+                // Validators.minLength(6)
             ])
     });
     constructor(
@@ -29,9 +29,11 @@ export class LoginComponent {
                 nId: this.loginForm.controls.nationalId.value,
                 pasW: this.loginForm.controls.password.value
             });
+            this.loginForm.reset();
         }
     }
     async onCancel() {
+        this.loginForm.reset();
         this.modalCtrl.dismiss({dismiss: true});
     }
 }

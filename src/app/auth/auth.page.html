@@ -22,27 +22,34 @@
 
 <ion-content>
     <ion-grid>
-        <form>
-            <ion-row>
-                <ion-col sizeMd="3" sizeXs="0"></ion-col>
-                <ion-col offsetMd="3" sizeMd="6" sizeXs="12">
-                    <ion-item>
-                        <ion-label position="floating">
-                            کد ملی
-                        </ion-label>
-                        <ion-input type="text"></ion-input>
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col sizeMd="5" sizeXs="0"></ion-col>
-                <ion-col sizeMd="2" sizeXs="12" margin-top>
-                    <ion-button color="success" expand="block" (click)="onSubmitClick()">
-                        <ion-icon name="clock" slot="start"></ion-icon>
-                        ثبت
-                    </ion-button>
-                </ion-col>
-            </ion-row>
-        </form>
+        <ion-row>
+            <ion-col sizeMd="3" sizeXs="0"></ion-col>
+            <ion-col offsetMd="3" sizeMd="6" sizeXs="12">
+                <ion-item>
+                    <ion-label position="floating">
+                        کد ملی
+                    </ion-label>
+                    <ion-input
+                            clearOnEdit
+                            [(ngModel)]="nationalObject.inputNational"
+                            type="text"
+                    ></ion-input>
+                </ion-item>
+                <div *ngIf="nationalObject.hasError">
+                    <ion-note color="warning">
+                        {{nationalObject.errorMessage}}
+                    </ion-note>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col sizeMd="5" sizeXs="0"></ion-col>
+            <ion-col margin-top sizeMd="2" sizeXs="12">
+                <ion-button (click)="onSubmitClick()" color="success" expand="block">
+                    <ion-icon name="clock" slot="start"></ion-icon>
+                    ثبت
+                </ion-button>
+            </ion-col>
+        </ion-row>
     </ion-grid>
 </ion-content>
