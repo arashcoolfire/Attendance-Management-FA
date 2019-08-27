@@ -79,13 +79,19 @@ namespace AttendanceApi.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Console.WriteLine("incoming Data");
+                Console.Write("\n################DATA##################\n" + data);
                 try
                 {
+                    Console.Write("\n################NATIONAL ID################\n" + data["NationalCode"]);
+                    Console.Write("\n################TIME TYPE################\n" + data["TimeType"].Value<int>());
+
                     var nationalCode = data["NationalCode"].Value<string>();
                     var timeType = data["TimeType"].Value<int>();
 
                     if (timeType <= 0 || timeType >= 5)
                     {
+                    Console.Write("\n################BAD TIME TYPE################\n", timeType);
                         var res = new RepResult<Day> { Successed = false, Message = "نوع زمان ورودی مجاز نمی باشد", ResultObject = null }; ;
                         return BadRequest(res);
                     }
@@ -93,6 +99,7 @@ namespace AttendanceApi.Controllers
 
 
                     var resulOfLogin = await loginRep.Attend(nationalCode);
+                    Console.Write("\n################LOGINRES################\n", resulOfLogin);
                     if(resulOfLogin.Successed)
                     {
                         var personnelVm = resulOfLogin.ResultObject;
@@ -124,6 +131,9 @@ namespace AttendanceApi.Controllers
                 }
 
             }
+
+            Console.WriteLine("ModelState is not Valid");
+            Console.Write(ModelState);
 
             return BadRequest();
         }
