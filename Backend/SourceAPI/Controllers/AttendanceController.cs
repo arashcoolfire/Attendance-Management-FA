@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +17,7 @@ namespace AttendanceApi.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
+        private ILoginRepository loginRep;
         private IAttendanceTimeRepository atdTimeRep;
         private IDayRepository dayRep;
         private IMonthRepository monthRep;
@@ -60,6 +61,60 @@ namespace AttendanceApi.Controllers
                     else
                     {
                         return NotFound(obj);
+                    }
+                }
+                catch (Exception)
+                {
+
+                    return BadRequest();
+                }
+
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost("AddTimeByNationalCode")]
+        public async Task<IActionResult> AddTimeByNationalCode([FromBody]JObject data)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var nationalCode = data["NationalCode"].Value<string>();
+                    var timeType = data["TimeType"].Value<int>();
+
+                    if (timeType <= 0 || timeType >= 5)
+                    {
+                        var res = new RepResult<Day> { Successed = false, Message = "نوع زمان ورودی مجاز نمی باشد", ResultObject = null }; ;
+                        return BadRequest(res);
+                    }
+                    var dateTime = DateTime.Now;
+
+
+                    var resulOfLogin = await loginRep.Login(nationalCode);
+                    if(resulOfLogin.Successed)
+                    {
+                        var personnelVm = resulOfLogin.ResultObject;
+
+                        var obj = (await atdTimeRep.Add(personnelVm.PersonnelId, dateTime, (WorkTimeType)timeType));
+
+                        if (obj.Successed)
+                        {
+                            var res = await dayRep.GetDayData(personnelVm.PersonnelId, dateTime);
+                            if (res.Successed)
+                                return Ok(res.ResultObject);
+                            else
+                                return NotFound(res);
+                        }
+                        else
+                        {
+                            return NotFound(obj);
+                        }
+                    }
+                    else
+                    {
+                        return NotFound(resulOfLogin);
                     }
                 }
                 catch (Exception)
