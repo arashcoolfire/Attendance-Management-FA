@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {AlertController, LoadingController, ModalController} from '@ionic/angular';
+import {environment} from '../../../environments/environment';
 
 @Component({
     selector: 'app-debuger',
@@ -16,6 +17,11 @@ export class DebugerComponent {
         'DELETE'
     ];
     selectedMethod: string;
+    httpOptions = {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+        })
+    };
 
     constructor(
         private http: HttpClient,
@@ -73,7 +79,7 @@ export class DebugerComponent {
         };
         const httpOptions = {
             headers: new HttpHeaders({
-                'Content-Type':  'application/json',
+                'Content-Type': 'application/json',
             })
         };
 
@@ -89,14 +95,20 @@ export class DebugerComponent {
     }
 
     async sendGetWithHeaders() {
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type':  'application/json',
-            })
-        };
         this.http.get(
             'http://localhost:5000/api/Personnel',
-            httpOptions).subscribe(
+            this.httpOptions).subscribe(
+            (res: any) => {
+                console.log(res);
+            }, (err: any) => {
+                console.log(err);
+            }
+        );
+    }
+
+    async attendTest() {
+        this.http.post(environment.api.url_http + '/Attendance/AddTimeByNationalCode',
+            {NationalCode: '4444455555', TimeType: 3}, this.httpOptions).subscribe(
             (res: any) => {
                 console.log(res);
             }, (err: any) => {
@@ -107,12 +119,13 @@ export class DebugerComponent {
 
     onStart() {
         // this.testValues();
-        this.sendGetWithHeaders();
-        if (this.selectedMethod === 'GET') {
-            if (this.inputUrl) {
-                this.getMethodTest();
-            }
-        }
+        // this.sendGetWithHeaders();
+        this.attendTest();
+        // if (this.selectedMethod === 'GET') {
+        //     if (this.inputUrl) {
+        //         this.getMethodTest();
+        //     }
+        // }
     }
 
     onExit() {
