@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,7 +25,7 @@ namespace AttendanceApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-
+ 
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -79,7 +79,8 @@ namespace AttendanceApi
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             app.UseHttpsRedirection();
             app.UseMvc();
