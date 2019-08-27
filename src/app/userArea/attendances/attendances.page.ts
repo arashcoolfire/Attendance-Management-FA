@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {LoadingController} from '@ionic/angular';
+import {AuthService} from '../../auth/auth.service';
 
 @Component({
     selector: 'app-tab1',
@@ -12,16 +13,16 @@ export class AttendancesPage {
     constructor(
         private router: Router,
         private loadingCtrl: LoadingController,
+        private authService: AuthService,
     ) {
     }
 
     async onExit() {
         const loader = await this.getLoding();
         loader.present();
-        setTimeout(() => {
-            this.router.navigateByUrl('');
+        this.authService.signOut().then(ok => {
             loader.dismiss();
-        }, 540);
+        });
     }
 
     async getLoding() {

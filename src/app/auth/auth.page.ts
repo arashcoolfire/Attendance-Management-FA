@@ -6,6 +6,8 @@ import {map, share, take, tap} from 'rxjs/operators';
 import {LoginComponent} from './login/login.component';
 import {AuthService} from './auth.service';
 import {DebugerComponent} from './api.debuger/debuger.component';
+import {tryCatch} from 'rxjs/internal-compatibility';
+import {AttendService} from './attend.service';
 
 @Component({
     selector: 'app-auth',
@@ -21,12 +23,20 @@ export class AuthPage implements OnInit {
     sec = this.date.getSeconds();
     clock: Observable<Date>;
 
+    nationalObject = {
+        inputNational: null,
+        errorMessage: 'کد ملی نامعتبر',
+        hasError: false,
+    };
+
+
     constructor(
         private router: Router,
         private loadingCtrl: LoadingController,
         private alertCtrl: AlertController,
         private modalCtr: ModalController,
         private authService: AuthService,
+        private attendService: AttendService,
     ) {
         this.oberserableTimer();
         this.clock.subscribe(val => {
@@ -54,12 +64,20 @@ export class AuthPage implements OnInit {
     }
 
     async onSubmitClick() {
-        const loader = await this.getLoader();
-        loader.present();
-        setTimeout(async () => {
+        if (
+            this.nationalObject.inputNational !== null &&
+            typeof Number(this.nationalObject.inputNational) === 'number' &&
+            !isNaN(Number(this.nationalObject.inputNational)) &&
+            this.nationalObject.inputNational.length === 10
+        ) {
+            this.nationalObject.hasError = false;
+            this.nationalObject.inputNational = null;
+            const loader = await this.getLoader();
+            loader.present();
             loader.dismiss();
             if (this.enterTo) {
                 const alert = await this.getAlert('صبح بخیر، روز کاری خوبی داشته باشید');
+                this.attendService.iAmAlive();
                 alert.present();
                 this.enterTo = !this.enterTo;
             } else if (!this.enterTo) {
@@ -67,19 +85,22 @@ export class AuthPage implements OnInit {
                 alert.present();
                 this.enterTo = !this.enterTo;
             }
-        }, 540);
+        } else {
+            this.nationalObject.hasError = true;
+            this.nationalObject.inputNational = null;
+        }
     }
 
     async getLoader() {
         return await this.loadingCtrl.create({message: 'اندکی صبر'});
     }
 
-    async getAlert(message: string) {
+    async getAlert(message: string, btnTxt?: string) {
         return await this.alertCtrl.create({
             message,
             buttons: [
                 {
-                    text: 'ممنون',
+                    text: btnTxt || 'ممنون',
                     role: 'cancel'
                 }
             ]
@@ -89,21 +110,22 @@ export class AuthPage implements OnInit {
     async loginUser(data: { nationalId: number, password: string }) {
         const loader = await this.getLoader();
         loader.present();
-        // this.authService.loginAPI({nationalId: data.nationalId.toString(), password: data.password})
-        //     .then(res => {
-        //             console.log(res);
-        //         },
-        //         err => {
-        //             console.log(err);
-        //         });
-        this.authService.signIn(data).then(res => {
-            if (res) {
-                setTimeout(async () => {
-                    await this.router.navigateByUrl('/dashboard');
-                    loader.dismiss();
-                }, 540);
+        let login;
+        try {
+            login = await this.authService.loginAPI({nationalId: data.nationalId.toString(), password: data.password});
+
+        } catch (e) {
+            console.log(e);
+        }
+        login.subscribe(
+            async (res: any) => {
+                loader.dismiss();
+            }, async (err: any) => {
+                loader.dismiss();
+                const alert = await this.getAlert('ورود ناموفق', 'بازتلاش');
+                alert.present();
             }
-        });
+        );
     }
 
     async onTestApi() {

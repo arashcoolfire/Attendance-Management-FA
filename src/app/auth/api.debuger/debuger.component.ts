@@ -71,10 +71,15 @@ export class DebugerComponent {
             password: '123',
             userRole: 2
         };
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+            })
+        };
 
         await this.http.post(
             `http://localhost:5000/api/Personnel`,
-            body)
+            body, httpOptions)
             .subscribe(
                 (res: any) => {
                     console.log(res);
@@ -89,7 +94,9 @@ export class DebugerComponent {
                 'Content-Type':  'application/json',
             })
         };
-        this.http.get('https://localhost:5001/api/Personnal', httpOptions).subscribe(
+        this.http.get(
+            'http://localhost:5000/api/Personnel',
+            httpOptions).subscribe(
             (res: any) => {
                 console.log(res);
             }, (err: any) => {
