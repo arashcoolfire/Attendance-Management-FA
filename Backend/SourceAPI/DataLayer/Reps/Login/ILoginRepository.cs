@@ -10,5 +10,6 @@ namespace AttendanceApi.Reps
     public interface ILoginRepository
     {
         Task<RepResult<PersonnelVM>> Login(string nationalCode, string passWord);
+        Task<RepResult<PersonnelVM>> Attend(string nationalCode);
     }
 }

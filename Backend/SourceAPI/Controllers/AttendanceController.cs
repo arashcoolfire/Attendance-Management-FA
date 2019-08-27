@@ -92,7 +92,7 @@ namespace AttendanceApi.Controllers
                     var dateTime = DateTime.Now;
 
 
-                    var resulOfLogin = await loginRep.Login(nationalCode);
+                    var resulOfLogin = await loginRep.Attend(nationalCode);
                     if(resulOfLogin.Successed)
                     {
                         var personnelVm = resulOfLogin.ResultObject;
