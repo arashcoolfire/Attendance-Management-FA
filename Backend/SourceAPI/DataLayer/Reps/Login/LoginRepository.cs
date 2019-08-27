@@ -43,5 +43,24 @@ namespace AttendanceApi.Reps
 
             return new RepResult<PersonnelVM>();
         }
+
+        public async Task<RepResult<PersonnelVM>> Attend(string nationalCole)    {
+            if (dbContext != null) {
+                var query = from prs in dbContext.Personnels join user in dbContext.Users on prs.PersonnelId equals user.PersonnelId
+                    where prs.NationalCode == nationalCole select prs;
+
+            if (await QueryTrackingBehavior.AnyAsync()) {
+                var obj = await QueryTrackingBehavior.Include(c => c.Users).SingleOrDefaultAsync();
+                PersonnelRepository.LoadUser(obj);
+                return new RepResult<PersonnelVM> { Successed = true };
+            } else {
+                return new RepResult<PersonnelVM> {
+                    Successed = false,
+                };
+            }
+
+            }
+            return new RepResult<PersonnelVM>();
+        }
     }
 }
