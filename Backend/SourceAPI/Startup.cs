@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,10 +25,25 @@ namespace AttendanceApi
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+ 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
 
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AutomaticAuthentication = false;
+
+            });
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
 
             services.AddEntityFrameworkSqlite().AddDbContext<AtdDbContext>();
 
@@ -44,6 +59,8 @@ namespace AttendanceApi
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, AtdDbContext context)
         {
+            app.UseCors("CorsPolicy");
+
             using (var client = new AtdDbContext())
             {
                 client.Database.EnsureCreated();
@@ -62,8 +79,9 @@ namespace AttendanceApi
             app.UseCors(builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader());
-  
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             app.UseHttpsRedirection();
             app.UseMvc();
         }
