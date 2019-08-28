@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,37 +35,35 @@ namespace AttendanceApi.Reps
                 }
                   else
                 {
-                    return new RepResult<PersonnelVM> {
-                     Successed = false,
-                      Message = "پرسنل با این کد ملی و پسورد در سیستم موجود نمی باشد" };
+                    return new RepResult<PersonnelVM> { Successed = false, Message = "پرسنل با این کد ملی و پسورد در سیستم موجود نمی باشد" };
                 }
             }
 
             return new RepResult<PersonnelVM>();
         }
+        public async Task<RepResult<PersonnelVM>> Login(string nationalCode)
+        {
+            if (dbContext != null)
+            {
 
-        public async Task<RepResult<PersonnelVM>> Attend(string nationalCole)    {
-            Console.Write("\n################NATIONAL CODE################\n" + nationalCole + "\n");
-            Console.Write("\n################ Contect ################\n" + dbContext + "\n");
-            if (dbContext != null) {
-                Console.Write("\n################Got into the first if################\n");
-                var query = from prs in dbContext.Personnels join user in dbContext.Users on prs.PersonnelId equals user.PersonnelId
-                    where prs.NationalCode == nationalCole select prs;
+                var query = from prs in dbContext.Personnels
+                            join user in dbContext.Users on prs.PersonnelId equals user.PersonnelId
+                            where prs.NationalCode == nationalCode
+                            select prs;
 
-            if (await query.AnyAsync()) {
-                Console.Write("\n################Got into the second if################\n");
-                var obj = await query.Include(c => c.Users).SingleOrDefaultAsync();
-                PersonnelRepository.LoadUser(obj);
-                return new RepResult<PersonnelVM> { Successed = true };
-            } else {
-                Console.Write("\n################Got into the second else of second if################\n");
-                return new RepResult<PersonnelVM> {
-                    Successed = false,
-                };
+
+                if (await query.AnyAsync())
+                {
+                    var obj = await query.Include(c => c.Users).SingleOrDefaultAsync();
+                    PersonnelRepository.LoadUser(obj);
+                    return new RepResult<PersonnelVM> { Successed = true, ResultObject = PersonnelVM.GetVM(obj) };
+                }
+                else
+                {
+                    return new RepResult<PersonnelVM> { Successed = false, Message = "پرسنل با این کد ملی و پسورد در سیستم موجود نمی باشد" };
+                }
             }
 
-            }
-            Console.Write("\n################Not Got to the first if################\n" + nationalCole + "\n");
             return new RepResult<PersonnelVM>();
         }
     }
