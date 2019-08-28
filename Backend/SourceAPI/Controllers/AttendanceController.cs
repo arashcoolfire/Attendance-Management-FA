@@ -17,17 +17,18 @@ namespace AttendanceApi.Controllers
     [ApiController]
     public class AttendanceController : ControllerBase
     {
-        private ILoginRepository loginRep;
         private IAttendanceTimeRepository atdTimeRep;
         private IDayRepository dayRep;
         private IMonthRepository monthRep;
+        private ILoginRepository loginRep;
         private IConfiguration configuration { get; set; }
 
-        public AttendanceController(IConfiguration configuration, IAttendanceTimeRepository atdTimeRep, IDayRepository dayRep, IMonthRepository monthRep)
+        public AttendanceController(IConfiguration configuration, IAttendanceTimeRepository atdTimeRep, IDayRepository dayRep, IMonthRepository monthRep, ILoginRepository loginRep)
         {
             this.atdTimeRep = atdTimeRep;
             this.dayRep = dayRep;
             this.monthRep = monthRep;
+            this.loginRep = loginRep;
 
             this.configuration = configuration;
         }
@@ -79,41 +80,26 @@ namespace AttendanceApi.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Console.WriteLine("incoming Data");
-                // Console.Write("\n################DATA##################\n" + data);
                 try
                 {
-                    // Console.Write("\n################TIME TYPE################\n" + data["TimeType"].Value<int>() + "\n");
-                    // Console.Write("\n################NATIONAL ID################\n" + data["NationalCode"].Value<string>() + "\n");
-
                     var nationalCode = data["NationalCode"].Value<string>();
                     var timeType = data["TimeType"].Value<int>();
 
-                    // Console.Write("\n################VALIDATION################\n" + (timeType <= 0 || timeType >= 5) + "\n");
-
                     if (timeType <= 0 || timeType >= 5)
                     {
-                    Console.Write("\n################BAD TIME TYPE################\n" + timeType);
                         var res = new RepResult<Day> { Successed = false, Message = "نوع زمان ورودی مجاز نمی باشد", ResultObject = null }; ;
                         return BadRequest(res);
                     }
 
-                    var dateTime = System.DateTime.Now;
-                    // Console.Write("\n################ DATETIME ################\n" + dateTime + "\n");
-
-
-                    // Console.Write("\n################NATIONAL CODE################\n" + nationalCode + "\n");
-                    var resulOfLogin = await loginRep.Attend(nationalCode.ToString());
-                    Console.Write("\n################LOGINRES################\n" + resulOfLogin + "\n");
-                    if(resulOfLogin.Successed)
+                    var resLogin = await loginRep.Login(nationalCode);
+                    if(resLogin.Successed)
                     {
-                        var personnelVm = resulOfLogin.ResultObject;
-
-                        var obj = (await atdTimeRep.Add(personnelVm.PersonnelId, dateTime, (WorkTimeType)timeType));
+                        var dateTime = DateTime.Now;
+                        var obj = (await atdTimeRep.Add(resLogin.ResultObject.PersonnelId, dateTime, (WorkTimeType)timeType));
 
                         if (obj.Successed)
                         {
-                            var res = await dayRep.GetDayData(personnelVm.PersonnelId, dateTime);
+                            var res = await dayRep.GetDayData(resLogin.ResultObject.PersonnelId, dateTime);
                             if (res.Successed)
                                 return Ok(res.ResultObject);
                             else
@@ -124,21 +110,13 @@ namespace AttendanceApi.Controllers
                             return NotFound(obj);
                         }
                     }
-                    else
-                    {
-                        return NotFound(resulOfLogin);
-                    }
                 }
                 catch (Exception)
                 {
 
                     return BadRequest();
                 }
-
             }
-
-            Console.WriteLine("ModelState is not Valid");
-            Console.Write(ModelState);
 
             return BadRequest();
         }
