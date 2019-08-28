@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,6 +10,6 @@ namespace AttendanceApi.Reps
     public interface ILoginRepository
     {
         Task<RepResult<PersonnelVM>> Login(string nationalCode, string passWord);
-        Task<RepResult<PersonnelVM>> Attend(string nationalCode);
+        Task<RepResult<PersonnelVM>> Login(string nationalCode);
     }
 }
